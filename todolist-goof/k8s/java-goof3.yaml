@@ -67,3 +67,4 @@ spec:
       targetPort: 8080
   selector:
     app: goof
+  loadBalancerSourceRanges: "192.168.0.0/16"
