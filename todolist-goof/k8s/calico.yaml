@@ -4464,6 +4464,15 @@ spec:
               drop:
                 - ALL
               add: ["NET_BIND_SERVICE"]
+            runAsUser: 10009
+            readOnlyRootFilesystem: true
+          resources:
+            requests:
+              cpu: 250m
+            limits:
+              cpu: 1000m
+              memory: 2000m
+          imagePullPolicy: Always
 
 ---
 
