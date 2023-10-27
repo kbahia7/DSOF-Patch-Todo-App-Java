@@ -4113,6 +4113,14 @@ spec:
               drop:
                 - ALL
               add: ["NET_BIND_SERVICE"]
+            runAsUser: 10003
+            readOnlyRootFilesystem: true
+          resources:
+            requests:
+              cpu: 250m
+            limits:
+              cpu: 1000m
+              memory: 2000m
         # This container installs the CNI binaries
         # and CNI network config file on each node.
         - name: install-cni
@@ -4160,6 +4168,14 @@ spec:
               drop:
                 - ALL
               add: ["NET_BIND_SERVICE"]
+            runAsUser: 10002
+            readOnlyRootFilesystem: true
+          resources:
+            requests:
+              cpu: 250m
+            limits:
+              cpu: 1000m
+              memory: 2000m
         # Adds a Flex Volume Driver that creates a per-pod Unix Domain Socket to allow Dikastes
         # to communicate with Felix over the Policy Sync API.
         - name: flexvol-driver
@@ -4175,6 +4191,14 @@ spec:
               drop:
                 - ALL
               add: ["NET_BIND_SERVICE"]
+            runAsUser: 10001
+            readOnlyRootFilesystem: true
+          resources:
+            requests:
+              cpu: 250m
+            limits:
+              cpu: 1000m
+              memory: 2000m
       containers:
         # Runs calico-node container on each Kubernetes node. This
         # container programs network policy and routes on each
@@ -4258,9 +4282,14 @@ spec:
               drop:
                 - ALL
               add: ["NET_BIND_SERVICE"]
+            runAsUser: 10000
+            readOnlyRootFilesystem: true
           resources:
             requests:
               cpu: 250m
+            limits:
+              cpu: 1000m
+              memory: 2000m
           lifecycle:
             preStop:
               exec:
@@ -4310,7 +4339,7 @@ spec:
               mountPath: /sys/fs/
               # Bidirectional means that, if we mount the BPF filesystem at /sys/fs/bpf it will propagate to the host.
               # If the host is known to mount that filesystem already then Bidirectional can be omitted.
-              mountPropagation: Bidirectional
+              mountPropagation: None
             - name: cni-log-dir
               mountPath: /var/log/calico/cni
               readOnly: true
