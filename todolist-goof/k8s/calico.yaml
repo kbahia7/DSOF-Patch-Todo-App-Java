@@ -4108,6 +4108,11 @@ spec:
           securityContext:
             privileged: false
             allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - ALL
+              add: ["NET_BIND_SERVICE"]
         # This container installs the CNI binaries
         # and CNI network config file on each node.
         - name: install-cni
@@ -4150,6 +4155,11 @@ spec:
           securityContext:
             privileged: false
             allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - ALL
+              add: ["NET_BIND_SERVICE"]
         # Adds a Flex Volume Driver that creates a per-pod Unix Domain Socket to allow Dikastes
         # to communicate with Felix over the Policy Sync API.
         - name: flexvol-driver
@@ -4160,6 +4170,11 @@ spec:
           securityContext:
             privileged: false
             allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - ALL
+              add: ["NET_BIND_SERVICE"]
       containers:
         # Runs calico-node container on each Kubernetes node. This
         # container programs network policy and routes on each
@@ -4239,6 +4254,10 @@ spec:
             privileged: false
             allowPrivilegeEscalation: false
             runAsNonRoot: true
+            capabilities:
+              drop:
+                - ALL
+              add: ["NET_BIND_SERVICE"]
           resources:
             requests:
               cpu: 250m
@@ -4408,6 +4427,14 @@ spec:
               - /usr/bin/check-status
               - -r
             periodSeconds: 10
+          securityContext:
+            privileged: false
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - ALL
+              add: ["NET_BIND_SERVICE"]
 
 ---
 
