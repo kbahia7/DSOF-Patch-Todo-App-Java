@@ -28,6 +28,7 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import io.github.benas.todolist.web.action.BaseAction;
 import io.github.benas.todolist.web.common.form.ChangePasswordForm;
 import io.github.benas.todolist.web.common.form.RegistrationForm;
@@ -251,7 +252,9 @@ public class AccountAction extends BaseAction {
     }
 
     private boolean incorrectCurrentPassword(User user) {
-        return !changePasswordForm.getCurrentPassword().equals(user.getPassword());
+        BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
+        return !bc.matches(changePasswordForm.getCurrentPassword(),user.getPassword());
+        //return !changePasswordForm.getCurrentPassword().equals(user.getPassword());
     }
 
     private void validateChangePasswordForm() {
