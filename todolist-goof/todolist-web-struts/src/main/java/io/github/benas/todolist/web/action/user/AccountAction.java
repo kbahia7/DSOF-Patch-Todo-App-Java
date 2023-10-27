@@ -248,7 +248,9 @@ public class AccountAction extends BaseAction {
     }
 
     private boolean newPasswordDoesNotMatchConfirmationPassword() {
-        return !changePasswordForm.getNewPassword().equals(changePasswordForm.getConfirmationPassword());
+        BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
+        return !bc.matches(changePasswordForm.getNewPassword(),changePasswordForm.getConfirmationPassword());
+        //return !changePasswordForm.getNewPassword().equals(changePasswordForm.getConfirmationPassword());
     }
 
     private boolean incorrectCurrentPassword(User user) {
